@@ -81,12 +81,22 @@ class Player
     }
 
     // Attack
+    public void upgradeAttack(int attack)
+    {
+        _stats[2] += attack;
+    }
+
     public int getAttack()
     {
         return _stats[2];
     }
-    
+
     // Defense
+    public void upgradeDefense(int defense)
+    {
+        _stats[3] += defense;
+    }
+    
      public int getDefense()
     {
         return _stats[3];
