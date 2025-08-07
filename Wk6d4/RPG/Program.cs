@@ -121,7 +121,7 @@ class Game
     public void run()
     {
         _isRunning = true;
-
+        Console.WriteLine("To navigate menus, enter the number of your desired option!");
         while (_isRunning)
         {
             displayHUD();
@@ -133,7 +133,56 @@ class Game
         Console.WriteLine("========HUD========");
         for (int i = 0; i < _menuOptions.Count(); i++)
         {
-            Console.WriteLine($"{i}. {_menuOptions[i]}");
+            Console.WriteLine($"{i + 1}. {_menuOptions[i]}");
+        }
+        hudInput();
+    }
+
+    public void exit()
+    {
+        _isRunning = false;
+        Console.WriteLine("You are now exiting the game, goodbye!");
+    }
+
+    public void viewStats()
+    {
+        Console.WriteLine("=======STATS=======");
+        Console.WriteLine($"Health: {_player.getHealth()}");
+        Console.WriteLine($"Mana: {_player.getMana()}");
+        Console.WriteLine($"Attack: {_player.getAttack()}");
+        Console.WriteLine($"Defense: {_player.getDefense()}");
+    }
+
+    public void hudInput()
+    {
+        try
+        {
+            int choice = int.Parse(Console.ReadLine());
+
+            switch (choice)
+            {
+                case 1:
+                    // Open Inventory
+                    break;
+                case 2:
+                    // Use an Item
+                    break;
+                case 3:
+                    // View stats
+                    break;
+                case 4:
+                    // Fight
+                    break;
+                case 5:
+                    // Exit
+                    exit();
+                    break;
+
+            }
+        }
+        catch
+        {
+
         }
     }
 }
