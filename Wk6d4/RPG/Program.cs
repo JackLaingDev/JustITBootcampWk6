@@ -96,10 +96,31 @@ class Player
     {
         _stats[3] += defense;
     }
-    
-     public int getDefense()
+
+    public int getDefense()
     {
         return _stats[3];
+    }
+}
+
+class Enemy
+{
+    
+    private List<string> _inventory;
+    private int[] _stats;
+    private string _name;
+
+    // Public
+    public Enemy(string name, int health, int mana, int attack, int defense)
+    {
+        this._inventory = new List<string>();
+        this._stats = new int[4];
+        this._name = name;
+
+        this._stats[0] = health;                           // Health
+        this._stats[1] = mana;                             // Mana
+        this._stats[2] = attack;                           // Attack
+        this._stats[3] = defense;                          // Defense
     }
 }
 
@@ -110,12 +131,14 @@ class Game
     private int _turn;
     private string[] _menuOptions;
     private bool _isRunning = false;
+    private List<Enemy> _enemies;
 
     // Public
     public Game(Player player)
     {
         this._player = player;
         this._menuOptions = new string[] { "Open Inventory", "Use an Item", "View Stats", "Fight", "Exit" };
+        this._enemies = new List<Enemy> { };
     }
 
     public void run()
@@ -166,7 +189,7 @@ class Game
             for (int i = 0; i < _menuOptions.Count(); i++)
             {
                 Console.WriteLine($"{i + 1}. {inventory[i]}");
-            } 
+            }
         }
 
     }
@@ -200,7 +223,7 @@ class Game
 
             }
         }
-        catch(FormatException ex)
+        catch (FormatException ex)
         {
             Console.WriteLine($"Please only enter a number to choose your option!: {ex.Message}");
         }
