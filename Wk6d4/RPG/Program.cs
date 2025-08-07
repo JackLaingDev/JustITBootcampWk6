@@ -153,6 +153,24 @@ class Game
         Console.WriteLine($"Defense: {_player.getDefense()}");
     }
 
+    public void openInventory()
+    {
+        Console.WriteLine("=====INVENTORY=====");
+        List<string> inventory = _player.getInventory();
+        if (inventory.Count() == 0)
+        {
+            Console.WriteLine("You have no Items in your inventory");
+        }
+        else
+        {
+            for (int i = 0; i < _menuOptions.Count(); i++)
+            {
+                Console.WriteLine($"{i + 1}. {_menuOptions[i]}");
+            } 
+        }
+
+    }
+
     public void hudInput()
     {
         try
@@ -163,12 +181,14 @@ class Game
             {
                 case 1:
                     // Open Inventory
+                    openInventory();
                     break;
                 case 2:
                     // Use an Item
                     break;
                 case 3:
                     // View stats
+                    viewStats();
                     break;
                 case 4:
                     // Fight
@@ -180,9 +200,9 @@ class Game
 
             }
         }
-        catch
+        catch(FormatException ex)
         {
-
+            Console.WriteLine($"Please only enter a number to choose your option!: {ex.Message}");
         }
     }
 }
