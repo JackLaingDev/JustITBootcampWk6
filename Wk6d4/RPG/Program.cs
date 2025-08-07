@@ -21,7 +21,7 @@ class Player
     }
 
 
-    // Getters and Setters
+    // Name
     public void setName(string name)
     {
         _name = name;
@@ -32,6 +32,7 @@ class Player
         return _name;
     }
 
+    // Inventory
     public void pickUpItem(string item)
     {
         _inventory.Add(item);
@@ -47,6 +48,7 @@ class Player
         return _inventory;
     }
 
+    // Health
     public void takeDamage(int damage)
     {
         _stats[0] -= damage;
@@ -62,19 +64,32 @@ class Player
         return _stats[0];
     }
 
+    // Mana
+    public void useMana(int mana)
+    {
+        _stats[1] -= mana;
+    }
+
+    public void gainMana(int mana)
+    {
+        _stats[1] += mana;
+    }
+
     public int getMana()
     {
         return _stats[1];
     }
 
+    // Attack
     public int getAttack()
     {
         return _stats[2];
     }
     
+    // Defense
      public int getDefense()
     {
-        return _stats[3];    
+        return _stats[3];
     }
 }
 
@@ -95,6 +110,7 @@ class Program
 {
     static void Main(string[] args)
     {
+        Player player = new Player("Jack");
 
     }
 }
