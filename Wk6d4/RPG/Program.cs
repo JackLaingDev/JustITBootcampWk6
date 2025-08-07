@@ -231,6 +231,7 @@ class Game
         this._menuOptions = new string[] { "Open Inventory", "View Stats", "Fight", "Exit" };
         this._turn = 0;
 
+        // Add more enemies here
         this._enemies = new List<Enemy>
         {
             new Enemy("Ugnius", 50, 50, 12, 15),
@@ -240,6 +241,7 @@ class Game
             new Enemy("Max", 150, 150, 28, 35)
         };
 
+        // Add more items here, NOTE: you must also add items functionality in useItem, use stat to make more effects.
         this._items = new List<Item>
         {
             new Item("Health Potion", 25, 0),
@@ -249,6 +251,7 @@ class Game
         };
     }
 
+    // RUN
     public void run()
     {
         _isRunning = true;
@@ -259,6 +262,14 @@ class Game
         }
     }
 
+    // EXIT
+    public void exit()
+    {
+        _isRunning = false;
+        Console.WriteLine("You are now exiting the game, goodbye!");
+    }
+
+    // HUD
     public void displayHUD()
     {
         Console.WriteLine("========HUD========");
@@ -269,12 +280,40 @@ class Game
         hudInput();
     }
 
-    public void exit()
+        public void hudInput()
     {
-        _isRunning = false;
-        Console.WriteLine("You are now exiting the game, goodbye!");
-    }
+        try
+        {
+            int choice = int.Parse(Console.ReadLine());
 
+            switch (choice)
+            {
+                case 1:
+                    // Open Inventory
+                    openInventory();
+                    break;
+                case 2:
+                    // View stats
+                    viewStats();
+                    break;
+                case 3:
+                    // Fight
+                    fight();
+                    break;
+                case 4:
+                    // Exit
+                    exit();
+                    break;
+
+            }
+        }
+        catch (FormatException ex)
+        {
+            Console.WriteLine($"Please only enter a number to choose your option!: {ex.Message}");
+        }
+    }
+    
+    // STATS
     public void viewStats()
     {
         Console.WriteLine("=======STATS=======");
@@ -284,6 +323,7 @@ class Game
         Console.WriteLine($"Defense: {_player.getDefense()}");
     }
 
+    // INVENTORY
     public void openInventory()
     {
         Console.WriteLine("=====INVENTORY=====");
@@ -343,44 +383,18 @@ class Game
         _player.dropItem(item);
     }
 
-    public void hudInput()
-    {
-        try
-        {
-            int choice = int.Parse(Console.ReadLine());
-
-            switch (choice)
-            {
-                case 1:
-                    // Open Inventory
-                    openInventory();
-                    break;
-                case 2:
-                    // View stats
-                    viewStats();
-                    break;
-                case 3:
-                    // Fight
-                    fight();
-                    break;
-                case 4:
-                    // Exit
-                    exit();
-                    break;
-
-            }
-        }
-        catch (FormatException ex)
-        {
-            Console.WriteLine($"Please only enter a number to choose your option!: {ex.Message}");
-        }
-    }
-
+    // COMBAT
     public void fight()
     {
         Console.WriteLine("=======FIGHT=======");
         bool isFighting = true;
         Enemy enemy = _enemies[_turn];
+
+        if (_turn > _enemies.Count())
+        {
+            Console.WriteLine("You've beaten everyone, GG WP");
+            return;
+        }
 
         Console.WriteLine($"{_player.getName()}, you have chosen to fight: {enemy.getName()}");
 
@@ -411,6 +425,11 @@ class Game
             int playerDamage = _player.getAttack();
             int enemyDamage = enemy.getAttack();
 
+            int playerDefense = _player.getDefense();
+            int enemyDefense = enemy.getDefense();
+
+
+
             enemy.takeDamage(playerDamage);
             Console.WriteLine($"{_player.getName()} attacked! {enemy.getName()}'s health is now: {enemy.getHealth()}");
             Console.WriteLine("------------------");
@@ -429,10 +448,11 @@ class Game
             Console.WriteLine($"{enemy.getName()} attacked! {_player.getName()}'s health is now: {_player.getHealth()}");
             Console.WriteLine("------------------");
 
-            if (enemy.hasDied())
+            if (_player.hasDied())
             {
                 Console.WriteLine("====================");
                 Console.WriteLine($"WOMP WOMP, you lost to {enemy.getName()}");
+                Console.WriteLine("Now you have to restart ;)");
                 Console.WriteLine("====================");
                 return;
             }
