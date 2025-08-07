@@ -3,14 +3,14 @@
 class Player
 {
     // Private 
-    private List<string> _inventory;
+    private List<Item> _inventory;
     private int[] _stats;
     private string _name;
 
     // Public
     public Player(string name)
     {
-        this._inventory = new List<string>();
+        this._inventory = new List<Item>();
         this._stats = new int[4];
         this._name = name;
 
@@ -33,17 +33,17 @@ class Player
     }
 
     // Inventory
-    public void pickUpItem(string item)
+    public void pickUpItem(Item item)
     {
         _inventory.Add(item);
     }
 
-    public void dropItem(string item)
+    public void dropItem(Item item)
     {
         _inventory.Remove(item);
     }
 
-    public List<string> getInventory()
+    public List<Item> getInventory()
     {
         return _inventory;
     }
@@ -210,13 +210,14 @@ class Game
     public void openInventory()
     {
         Console.WriteLine("=====INVENTORY=====");
-        List<string> inventory = _player.getInventory();
+        List<Item> inventory = _player.getInventory();
         if (inventory.Count() == 0)
         {
             Console.WriteLine("You have no Items in your inventory");
         }
         else
         {
+            Console.WriteLine("Choose the Item you want to use!");
             for (int i = 0; i < _menuOptions.Count(); i++)
             {
                 Console.WriteLine($"{i + 1}. {inventory[i]}");
@@ -225,6 +226,21 @@ class Game
 
     }
 
+       public void inventoryInput()
+    {
+        try
+        {
+            int choice = int.Parse(Console.ReadLine());
+            int index = choice - 1;
+
+            Item chosenItem = _items[index];
+
+        }
+        catch (FormatException ex)
+        {
+            Console.WriteLine($"Please only enter a number to choose your option!: {ex.Message}");
+        }
+    }
     public void hudInput()
     {
         try
