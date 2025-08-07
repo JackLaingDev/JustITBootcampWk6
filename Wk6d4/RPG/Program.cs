@@ -165,7 +165,7 @@ class Game
         {
             for (int i = 0; i < _menuOptions.Count(); i++)
             {
-                Console.WriteLine($"{i + 1}. {_menuOptions[i]}");
+                Console.WriteLine($"{i + 1}. {inventory[i]}");
             } 
         }
 
@@ -220,7 +220,6 @@ class Program
 
             Player player = new Player(name);
             Game game = new Game(player);
-
             game.run();
         }
         catch (FormatException ex)
