@@ -46,6 +46,26 @@ class Player
     {
         this._stats[0] += health;
     }
+
+    public int getHealth()
+    {
+        return this._stats[0];
+    }
+
+    public int getMana()
+    {
+        return this._stats[1];
+    }
+
+    public int getAttack()
+    {
+        return this._stats[2];
+    }
+    
+     public int getDefense()
+    {
+        return this._stats[3];    
+    }
 }
 
 class Game
@@ -65,6 +85,7 @@ class Program
 {
     static void Main(string[] args)
     {
-        Console.WriteLine("Hello, World!");
+        Player player = new Player("Jack");
+
     }
 }
