@@ -36,6 +36,11 @@ class Player
     {
         this._items.Add(item);
     }
+
+    public void takeDamage(int damage)
+    {
+        this._stats[0] -= damage;
+    }
 }
 
 class Game
