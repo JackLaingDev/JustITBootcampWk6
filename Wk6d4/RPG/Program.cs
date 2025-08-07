@@ -16,7 +16,7 @@ class Player
 
         this._stats[0] = 100;                         // Health
         this._stats[1] = 100;                         // Mana
-        this._stats[2] = 12;                          // Attack
+        this._stats[2] = 14;                          // Attack
         this._stats[3] = 17;                          // Defense
     }
 
@@ -388,13 +388,14 @@ class Game
     {
         Console.WriteLine("=======FIGHT=======");
         bool isFighting = true;
-        Enemy enemy = _enemies[_turn];
 
-        if (_turn > _enemies.Count())
+        if (_turn > _enemies.Count() - 1)
         {
             Console.WriteLine("You've beaten everyone, GG WP");
             return;
         }
+
+        Enemy enemy = _enemies[_turn];
 
         Console.WriteLine($"{_player.getName()}, you have chosen to fight: {enemy.getName()}");
 
@@ -454,6 +455,7 @@ class Game
                 Console.WriteLine($"WOMP WOMP, you lost to {enemy.getName()}");
                 Console.WriteLine("Now you have to restart ;)");
                 Console.WriteLine("====================");
+                _isRunning = false;
                 return;
             }
         }
