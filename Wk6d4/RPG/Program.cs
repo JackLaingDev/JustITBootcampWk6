@@ -105,7 +105,7 @@ class Player
 
 class Enemy
 {
-    
+
     private List<string> _inventory;
     private int[] _stats;
     private string _name;
@@ -121,6 +121,20 @@ class Enemy
         this._stats[1] = mana;                             // Mana
         this._stats[2] = attack;                           // Attack
         this._stats[3] = defense;                          // Defense
+    }
+}
+
+class Item
+{
+    private string _name;
+    private int _value;
+    private int _stat;
+
+    public Item(string name, int value, int stat)
+    {
+        this._name = name;
+        this._value = value;
+        this._stat = stat;
     }
 }
 
