@@ -146,6 +146,7 @@ class Game
     private string[] _menuOptions;
     private bool _isRunning = false;
     private List<Enemy> _enemies;
+    private List<Item> _items;
 
     // Public
     public Game(Player player)
@@ -160,6 +161,14 @@ class Game
             new Enemy("Luke", 100, 100, 18, 23),
             new Enemy("Yusuf",125, 125, 22, 29),
             new Enemy("Max", 150, 150, 28, 35)
+        };
+
+        this._items = new List<Item>
+        {
+            new Item("Health Potion", 25, 0),
+            new Item("Mana Potion", 25, 1),
+            new Item("Attack Upgrade", 4, 2),
+            new Item("Defense Upgrade", 7, 3)
         };
     }
 
