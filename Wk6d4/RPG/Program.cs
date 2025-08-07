@@ -108,16 +108,33 @@ class Game
     // Private
     private Player _player;
     private int _turn;
+    private string[] _menuOptions;
+    private bool _isRunning = false;
 
     // Public
     public Game(Player player)
     {
         this._player = player;
+        this._menuOptions = new string[] { "Open Inventory", "Use an Item", "View Stats", "Fight", "Exit" };
     }
 
     public void run()
     {
-        
+        _isRunning = true;
+
+        while (_isRunning)
+        {
+            displayHUD();
+        }
+    }
+
+    public void displayHUD()
+    {
+        Console.WriteLine("========HUD========");
+        for (int i = 0; i < _menuOptions.Count(); i++)
+        {
+            Console.WriteLine($"{i}. {_menuOptions[i]}");
+        }
     }
 }
 
