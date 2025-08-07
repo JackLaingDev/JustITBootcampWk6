@@ -3,14 +3,14 @@
 class Player
 {
     // Private 
-    private List<string> _items;
+    private List<string> _inventory;
     private int[] _stats;
     private string _name;
 
     // Public
     public Player(string name)
     {
-        this._items = new List<string>();
+        this._inventory = new List<string>();
         this._stats = new int[4];
         this._name = name;
 
@@ -34,7 +34,7 @@ class Player
 
     public void pickUpItem(string item)
     {
-        this._items.Add(item);
+        this._inventory.Add(item);
     }
 
     public void takeDamage(int damage)
@@ -86,6 +86,6 @@ class Program
     static void Main(string[] args)
     {
         Player player = new Player("Jack");
-
+        Console.WriteLine(player.getHealth());
     }
 }
