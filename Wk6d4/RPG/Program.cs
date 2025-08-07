@@ -70,7 +70,7 @@ class Player
         _stats[1] -= mana;
     }
 
-    public void gainMana(int mana)
+    public void upgradeMana(int mana)
     {
         _stats[1] += mana;
     }
@@ -149,7 +149,7 @@ class Item
 
     public int getStat()
     {
-        return _value;
+        return _stat;
     }
 }
 
@@ -191,6 +191,10 @@ class Game
     {
         _isRunning = true;
         Console.WriteLine("To navigate menus, enter the number of your desired option!");
+        _player.pickUpItem(_items[0]);
+        _player.pickUpItem(_items[1]);
+        _player.pickUpItem(_items[2]);
+        _player.pickUpItem(_items[3]);
         while (_isRunning)
         {
             displayHUD();
@@ -233,10 +237,11 @@ class Game
         else
         {
             Console.WriteLine("Choose the Item you want to use!");
-            for (int i = 0; i < _menuOptions.Count(); i++)
+            for (int i = 0; i < inventory.Count(); i++)
             {
                 Console.WriteLine($"{i + 1}. {inventory[i].getName()}");
             }
+            inventoryInput();
         }
 
     }
@@ -249,13 +254,37 @@ class Game
             int index = choice - 1;
 
             Item chosenItem = _items[index];
-
+            useItem(chosenItem);
         }
         catch (FormatException ex)
         {
             Console.WriteLine($"Please only enter a number to choose your option!: {ex.Message}");
         }
     }
+
+    public void useItem(Item item)
+    {
+        int stat = item.getStat();
+        Console.WriteLine(stat);
+        Console.WriteLine($"You have used {item.getName()}! Check stats to see its effect!");
+
+        switch (stat)
+        {
+            case 0:
+                _player.heal(item.getValue());
+                break;
+            case 1:
+                _player.upgradeMana(item.getValue());
+                break;
+            case 2:
+                _player.upgradeAttack(item.getValue());
+                break;
+            case 3:
+                _player.upgradeDefense(item.getValue());
+                break;
+        }
+    }
+
     public void hudInput()
     {
         try
@@ -290,13 +319,9 @@ class Game
             Console.WriteLine($"Please only enter a number to choose your option!: {ex.Message}");
         }
     }
-
-    public void useItem(Item item)
-    {
-        _player.
-    }
 }
 
+// MAIN
 class Program
 {
     static void Main(string[] args)
@@ -309,6 +334,7 @@ class Program
             string name = Console.ReadLine();
 
             Player player = new Player(name);
+
             Game game = new Game(player);
             game.run();
         }
