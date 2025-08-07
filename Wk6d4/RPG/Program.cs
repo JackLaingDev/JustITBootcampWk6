@@ -106,11 +106,16 @@ class Player
 class Game
 {
     // Private
-    private Player player;
-    private int turn;
+    private Player _player;
+    private int _turn;
 
     // Public
-    public Game()
+    public Game(Player player)
+    {
+        this._player = player;
+    }
+
+    public void run()
     {
         
     }
@@ -120,7 +125,25 @@ class Program
 {
     static void Main(string[] args)
     {
-        Player player = new Player("Jack");
+        try
+        {
+            Console.WriteLine("====================\n WELCOME TO MY RPG!\n====================");
+            Console.WriteLine("To begin, please enter your name:");
 
+            string name = Console.ReadLine();
+
+            Player player = new Player(name);
+            Game game = new Game(player);
+
+            game.run();
+        }
+        catch (FormatException ex)
+        {
+            Console.WriteLine($"You must only enter a string!: {ex.Message}");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Uh oh! Something went wrong: {ex.Message}");
+        }
     }
 }
