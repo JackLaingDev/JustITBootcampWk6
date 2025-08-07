@@ -41,6 +41,11 @@ class Player
     {
         this._stats[0] -= damage;
     }
+
+    public void heal(int health)
+    {
+        this._stats[0] += health;
+    }
 }
 
 class Game
