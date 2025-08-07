@@ -24,7 +24,7 @@ class Player
     // Getters and Setters
     public void setName(string name)
     {
-        this._name = name;
+        _name = name;
     }
 
     public string getName()
@@ -34,37 +34,42 @@ class Player
 
     public void pickUpItem(string item)
     {
-        this._inventory.Add(item);
+        _inventory.Add(item);
+    }
+
+    public List<string> getInventory()
+    {
+        return _inventory;
     }
 
     public void takeDamage(int damage)
     {
-        this._stats[0] -= damage;
+        _stats[0] -= damage;
     }
 
     public void heal(int health)
     {
-        this._stats[0] += health;
+        _stats[0] += health;
     }
 
     public int getHealth()
     {
-        return this._stats[0];
+        return _stats[0];
     }
 
     public int getMana()
     {
-        return this._stats[1];
+        return _stats[1];
     }
 
     public int getAttack()
     {
-        return this._stats[2];
+        return _stats[2];
     }
     
      public int getDefense()
     {
-        return this._stats[3];    
+        return _stats[3];    
     }
 }
 
