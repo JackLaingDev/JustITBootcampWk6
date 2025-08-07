@@ -101,6 +101,15 @@ class Player
     {
         return _stats[3];
     }
+
+    public bool hasDied()
+    {
+        if (_stats[0] < 0)
+        {
+            return true;
+        }
+        return false;
+    }
 }
 
 class Enemy
@@ -121,6 +130,58 @@ class Enemy
         this._stats[1] = mana;                             // Mana
         this._stats[2] = attack;                           // Attack
         this._stats[3] = defense;                          // Defense
+    }
+
+    public string getName()
+    {
+        return _name;
+    }
+
+    public void takeDamage(int damage)
+    {
+        _stats[0] -= damage;
+    }
+
+    public void heal(int health)
+    {
+        _stats[0] += health;
+    }
+
+    public int getHealth()
+    {
+        return _stats[0];
+    }
+
+    // Mana
+    public void useMana(int mana)
+    {
+        _stats[1] -= mana;
+    }
+
+    public int getMana()
+    {
+        return _stats[1];
+    }
+
+    // Attack
+    public int getAttack()
+    {
+        return _stats[2];
+    }
+
+    // Defense
+    public int getDefense()
+    {
+        return _stats[3];
+    }
+
+    public bool hasDied()
+    {
+        if (_stats[0] < 0)
+        {
+            return true;
+        }
+        return false;
     }
 }
 
@@ -168,6 +229,7 @@ class Game
     {
         this._player = player;
         this._menuOptions = new string[] { "Open Inventory", "View Stats", "Fight", "Exit" };
+        this._turn = 0;
 
         this._enemies = new List<Enemy>
         {
@@ -191,10 +253,6 @@ class Game
     {
         _isRunning = true;
         Console.WriteLine("To navigate menus, enter the number of your desired option!");
-        _player.pickUpItem(_items[0]);
-        _player.pickUpItem(_items[1]);
-        _player.pickUpItem(_items[2]);
-        _player.pickUpItem(_items[3]);
         while (_isRunning)
         {
             displayHUD();
@@ -303,6 +361,7 @@ class Game
                     break;
                 case 3:
                     // Fight
+                    fight();
                     break;
                 case 4:
                     // Exit
@@ -315,6 +374,32 @@ class Game
         {
             Console.WriteLine($"Please only enter a number to choose your option!: {ex.Message}");
         }
+    }
+
+    public void fight()
+    {
+        Console.WriteLine("=======FIGHT=======");
+        bool isFighting = true;
+        Enemy enemy = _enemies[_turn];
+
+        Console.WriteLine($"{_player.getName()}, you have chosen to fight: {enemy.getName()}");
+
+        Console.WriteLine($"======={_player.getName()}=======");
+        Console.WriteLine($"Health: {_player.getHealth()}");
+        Console.WriteLine($"Mana: {_player.getMana()}");
+        Console.WriteLine($"Attack: {_player.getAttack()}");
+        Console.WriteLine($"Defense: {_player.getDefense()}");
+
+        Console.WriteLine("------------------------------");
+
+        Console.WriteLine($"======={enemy.getName()}=======");
+        Console.WriteLine($"Health: {enemy.getHealth()}");
+        Console.WriteLine($"Mana: {enemy.getMana()}");
+        Console.WriteLine($"Attack: {enemy.getAttack()}");
+        Console.WriteLine($"Defense: {enemy.getDefense()}");
+
+        Console.WriteLine("Do you wish to proceed? [y/n]");
+        char answer = char.Parse(Console.ReadLine());
     }
 }
 
