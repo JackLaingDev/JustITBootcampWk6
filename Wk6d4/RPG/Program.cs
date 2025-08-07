@@ -138,7 +138,15 @@ class Game
     {
         this._player = player;
         this._menuOptions = new string[] { "Open Inventory", "Use an Item", "View Stats", "Fight", "Exit" };
-        this._enemies = new List<Enemy> { };
+
+        this._enemies = new List<Enemy>
+        {
+            new Enemy("Ugnius", 50, 50, 12, 15),
+            new Enemy("Dercio", 75, 75, 14, 18),
+            new Enemy("Luke", 100, 100, 18, 23),
+            new Enemy("Yusuf",125, 125, 22, 29),
+            new Enemy("Max", 150, 150, 28, 35)
+        };
     }
 
     public void run()
