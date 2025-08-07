@@ -37,6 +37,11 @@ class Player
         _inventory.Add(item);
     }
 
+    public void dropItem(string item)
+    {
+        _inventory.Remove(item);
+    }
+
     public List<string> getInventory()
     {
         return _inventory;
@@ -90,7 +95,6 @@ class Program
 {
     static void Main(string[] args)
     {
-        Player player = new Player("Jack");
-        Console.WriteLine(player.getHealth());
+
     }
 }
