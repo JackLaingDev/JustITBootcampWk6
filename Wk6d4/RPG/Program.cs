@@ -421,6 +421,7 @@ class Game
                 Console.WriteLine($"Congrats, you beat {enemy.getName()}");
                 Console.WriteLine("====================");
                 _turn++;
+                giveRewards();
                 return;
             }
 
@@ -436,6 +437,23 @@ class Game
                 return;
             }
         }
+    }
+
+    public void giveRewards()
+    {
+        Random rand = new Random();
+
+        int amountOfItems = rand.Next(10);
+        List<string> rewards = new List<string>();
+
+        for (int i = 0; i < amountOfItems; i++)
+        {
+            int randomItemIndex = rand.Next(_items.Count());
+            Item randomItem = _items[randomItemIndex];
+            _player.pickUpItem(randomItem);
+            rewards.Add(randomItem.getName());
+        }
+        Console.WriteLine($"Here are your rewards:\n {string.Join(", ", rewards)}");
     }
 }
 
