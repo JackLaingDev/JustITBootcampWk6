@@ -136,6 +136,21 @@ class Item
         this._value = value;
         this._stat = stat;
     }
+
+    public string getName()
+    {
+        return _name;
+    }
+
+    public int getValue()
+    {
+        return _value;
+    }
+
+    public int getStat()
+    {
+        return _value;
+    }
 }
 
 class Game
@@ -220,13 +235,13 @@ class Game
             Console.WriteLine("Choose the Item you want to use!");
             for (int i = 0; i < _menuOptions.Count(); i++)
             {
-                Console.WriteLine($"{i + 1}. {inventory[i]}");
+                Console.WriteLine($"{i + 1}. {inventory[i].getName()}");
             }
         }
 
     }
 
-       public void inventoryInput()
+    public void inventoryInput()
     {
         try
         {
@@ -274,6 +289,11 @@ class Game
         {
             Console.WriteLine($"Please only enter a number to choose your option!: {ex.Message}");
         }
+    }
+
+    public void useItem(Item item)
+    {
+        _player.
     }
 }
 
