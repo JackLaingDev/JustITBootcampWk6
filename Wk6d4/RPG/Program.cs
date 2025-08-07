@@ -400,6 +400,42 @@ class Game
 
         Console.WriteLine("Do you wish to proceed? [y/n]");
         char answer = char.Parse(Console.ReadLine());
+
+        if (answer == 'n')
+        {
+            return;
+        }
+
+        while (isFighting)
+        {
+            int playerDamage = _player.getAttack();
+            int enemyDamage = enemy.getAttack();
+
+            enemy.takeDamage(playerDamage);
+            Console.WriteLine($"{_player.getName()} attacked! {enemy.getName()}'s health is now: {enemy.getHealth()}");
+            Console.WriteLine("------------------");
+
+            if (enemy.hasDied())
+            {
+                Console.WriteLine("====================");
+                Console.WriteLine($"Congrats, you beat {enemy.getName()}");
+                Console.WriteLine("====================");
+                _turn++;
+                return;
+            }
+
+            _player.takeDamage(enemyDamage);
+            Console.WriteLine($"{enemy.getName()} attacked! {_player.getName()}'s health is now: {_player.getHealth()}");
+            Console.WriteLine("------------------");
+
+            if (enemy.hasDied())
+            {
+                Console.WriteLine("====================");
+                Console.WriteLine($"WOMP WOMP, you lost to {enemy.getName()}");
+                Console.WriteLine("====================");
+                return;
+            }
+        }
     }
 }
 
