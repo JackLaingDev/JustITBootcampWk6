@@ -167,7 +167,7 @@ class Game
     public Game(Player player)
     {
         this._player = player;
-        this._menuOptions = new string[] { "Open Inventory", "Use an Item", "View Stats", "Fight", "Exit" };
+        this._menuOptions = new string[] { "Open Inventory", "View Stats", "Fight", "Exit" };
 
         this._enemies = new List<Enemy>
         {
@@ -253,7 +253,7 @@ class Game
             int choice = int.Parse(Console.ReadLine());
             int index = choice - 1;
 
-            Item chosenItem = _items[index];
+            Item chosenItem = _player.getInventory()[index];
             useItem(chosenItem);
         }
         catch (FormatException ex)
@@ -265,7 +265,6 @@ class Game
     public void useItem(Item item)
     {
         int stat = item.getStat();
-        Console.WriteLine(stat);
         Console.WriteLine($"You have used {item.getName()}! Check stats to see its effect!");
 
         switch (stat)
@@ -283,6 +282,7 @@ class Game
                 _player.upgradeDefense(item.getValue());
                 break;
         }
+        _player.dropItem(item);
     }
 
     public void hudInput()
@@ -298,16 +298,13 @@ class Game
                     openInventory();
                     break;
                 case 2:
-                    // Use an Item
-                    break;
-                case 3:
                     // View stats
                     viewStats();
                     break;
-                case 4:
+                case 3:
                     // Fight
                     break;
-                case 5:
+                case 4:
                     // Exit
                     exit();
                     break;
